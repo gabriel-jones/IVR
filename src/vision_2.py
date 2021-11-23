@@ -99,16 +99,15 @@ class JointEstimator:
     vy = np.array([0, 1, 0])
     vz = np.array([0, 0, 1])
     
-    y1 = np.cross(link2, vy)
-    a2 = np.arccos(np.dot(y1, vx) / (nl2 * np.linalg.norm(vx)))
+    a1 = np.arccos(np.dot(link2, vy) / (nl2 * np.linalg.norm(vy)))
     
-    a3 = np.arccos(np.dot(link2, vy) / (nl2 * np.linalg.norm(vy))) - (np.pi / 2)
+    a3 = np.arccos(np.dot(link2, vz) / (nl2 * np.linalg.norm(vz)))
     
     c = np.arcsin(np.linalg.norm(np.cross(link2, link3)) / (nl2 * nl3))
     a4 = np.arccos(np.dot(link2, link3) / (nl2 * nl3)) * (-1 if c < 0 else 1)
     
     angles = Float64MultiArray()
-    angles.data = np.array([ a2, a3, a4 ])
+    angles.data = np.array([ a1, a3, a4 ])
   
     try:
       self.joint_angles_pub.publish(angles)
