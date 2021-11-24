@@ -33,8 +33,10 @@ class JointEstimator:
     rospy.init_node('image_processing', anonymous=True)
     
     # initialize a publisher to send joint angles to a topic named joints_angle
-    self.joint_angles_pub = rospy.Publisher("joint_angles", Float64MultiArray, queue_size=10)
-    
+    self.joint_angle2_pub = rospy.Publisher("joint_angle_2", Float64, queue_size=10)
+    self.joint_angle3_pub = rospy.Publisher("joint_angle_3", Float64, queue_size=10)
+    self.joint_angle4_pub = rospy.Publisher("joint_angle_4", Float64, queue_size=10)
+            
     # initialize subscribers to recieve messages from the camera topics and use callback functions to recieve data
     self.image_sub1 = rospy.Subscriber("/camera1/robot/image_raw", Image, self.callback1)
     self.image_sub2 = rospy.Subscriber("/camera2/robot/image_raw", Image, self.callback2)
@@ -106,12 +108,11 @@ class JointEstimator:
     
     c = np.arcsin(np.linalg.norm(np.cross(link2, link3)) / (nl2 * nl3))
     a4 = np.arccos(np.dot(link2, link3) / (nl2 * nl3)) * (-1 if c < 0 else 1)
-    
-    angles = Float64MultiArray()
-    angles.data = np.array([ a2, a3, a4 ])
   
     try:
-      self.joint_angles_pub.publish(angles)
+      self.joint_angle2_pub.publish(a2)
+      self.joint_angle3_pub.publish(a3)
+      self.joint_angle4_pub.publish(a4)
     except CvBridgeError as e:
       print(e)
 
