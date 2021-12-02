@@ -36,7 +36,6 @@ class JointEstimator:
     self.joint_angle1_pub = rospy.Publisher("joint_angle_1", Float64, queue_size=10)
     self.joint_angle3_pub = rospy.Publisher("joint_angle_3", Float64, queue_size=10)
     self.joint_angle4_pub = rospy.Publisher("joint_angle_4", Float64, queue_size=10)
-    self.joint_angles_pub = rospy.Publisher("joint_angles", Float64MultiArray, queue_size=10)
 
     # initialize subscribers to recieve messages from the camera topics and use callback functions to recieve data
     self.image_sub1 = rospy.Subscriber("/camera1/robot/image_raw", Image, self.callback1)
@@ -113,12 +112,8 @@ class JointEstimator:
 
     a4 = np.arctan2(j3[0] - j4[0], j3[2] - j4[2])
 
-    angles = Float64MultiArray()
-    angles.data = np.array([ a1, a3, a4 ])
-
 
     try:
-      self.joint_angles_pub.publish(angles)
       self.joint_angle1_pub.publish(a1)
       self.joint_angle3_pub.publish(a3)
       self.joint_angle4_pub.publish(a4)
