@@ -105,10 +105,9 @@ class JointEstimator:
     a21 = np.arctan2(j2[0] - j3[0],j2[2] - j3[2])
     a2 = (a21*-1)
 
-    a3 = np.arctan2(j2[1] - j3[1], j2[2] - j3[2])
+    a3 = np.arctan2(j2[1] - j3[1], j2[2] - j3[2]) * -1
 
-    a41 = np.arctan2(j3[0] - j4[0], j3[2] - j4[2])
-    a4 = (a41 * -1) - a2
+    a4 = -np.arctan2(j3[0] - j4[0], j3[2] - j4[2]) - a2
 
     angles = Float64MultiArray()
     angles.data = np.array([ a2, a3, a4 ])

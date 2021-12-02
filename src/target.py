@@ -34,5 +34,6 @@ def target_publisher():
 if __name__ == '__main__':
     try:
         target_publisher()
+        ForwardKin()
     except rospy.ROSInterruptException:
         pass
