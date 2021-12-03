@@ -60,7 +60,7 @@ class control:
     self.V1 = data
     
     Je = self.FK()
-    if Je:
+    if Je is not None:
       self.joint1_pub.publish(Je[0])
       self.joint3_pub.publish(Je[1])
       self.joint4_pub.publish(Je[2])
@@ -69,7 +69,7 @@ class control:
     self.V2 = data
 
     Je = self.FK()
-    if Je:
+    if Je is not None:
       self.joint1_pub.publish(Je[0])
       self.joint3_pub.publish(Je[1])
       self.joint4_pub.publish(Je[2])
@@ -78,7 +78,7 @@ class control:
     self.V3 = data
 
     Je = self.FK()
-    if Je:
+    if Je is not None:
       self.joint1_pub.publish(Je[0])
       self.joint3_pub.publish(Je[1])
       self.joint4_pub.publish(Je[2])
