@@ -17,6 +17,10 @@ class control:
   def __init__(self):
     # initialize the node named image_processing
     rospy.init_node('control', anonymous=True)
+    
+    self.V1 = Float64()
+    self.V2 = Float64()
+    self.V3 = Float64()
 
     self.joint_angle_1 = rospy.Subscriber("joint_angle_1", Float64, self.callback1)
     self.joint_angle_3 = rospy.Subscriber("joint_angle_3", Float64, self.callback2)
@@ -51,8 +55,7 @@ class control:
 
   # Recieve data from estimated joint angles in vision_2
   def callback1(self, data):
-    self.V1 = Float64()
-    self.V1 = data
+    self.V1.data = data
     
     Je = self.FK()
     self.joint1_pub.publish(Je[0])
@@ -60,8 +63,7 @@ class control:
     self.joint4_pub.publish(Je[2])
 
   def callback2(self, data):
-    self.V2 = Float64()
-    self.V2 = data
+    self.V2.data = data
 
     Je = self.FK()
     self.joint1_pub.publish(Je[0])
@@ -69,8 +71,7 @@ class control:
     self.joint4_pub.publish(Je[2])
 
   def callback3(self, data):
-    self.V3 = Float64()
-    self.V3 = data
+    self.V3.data = data
 
     Je = self.FK()
     self.joint1_pub.publish(Je[0])
