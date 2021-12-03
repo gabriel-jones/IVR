@@ -23,8 +23,8 @@ class control:
     self.joint_angle_4 = rospy.Subscriber("joint_angle_4", Float64, self.callback3)
 
     self.joint1_pub = rospy.Publisher('/robot/joint1_position_controller/command', Float64, queue_size=10)
-	  self.joint3_pub = rospy.Publisher('/robot/joint3_position_controller/command', Float64, queue_size=10)
-	  self.joint4_pub = rospy.Publisher('/robot/joint4_position_controller/command', Float64, queue_size=10)
+    self.joint3_pub = rospy.Publisher('/robot/joint3_position_controller/command', Float64, queue_size=10)
+    self.joint4_pub = rospy.Publisher('/robot/joint4_position_controller/command', Float64, queue_size=10)
 
     # initialize the bridge between openCV and ROS
     self.bridge = CvBridge()
