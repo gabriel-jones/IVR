@@ -18,9 +18,9 @@ class control:
     # initialize the node named image_processing
     rospy.init_node('control', anonymous=True)
     
-    self.V1 = Float64()
-    self.V2 = Float64()
-    self.V3 = Float64()
+    self.V1 = None
+    self.V2 = None
+    self.V3 = None
 
     self.joint_angle_1 = rospy.Subscriber("joint_angle_1", Float64, self.callback1)
     self.joint_angle_3 = rospy.Subscriber("joint_angle_3", Float64, self.callback2)
@@ -34,6 +34,8 @@ class control:
     self.bridge = CvBridge()
 
   def FK(self):
+    if self.V1 is None or self.V2 is None or self.V3 is None:
+      return None
      #The DH values are as follows
     #           a    |   α    |  d    |   θ
     # Link1     0        90     4.0      Taken from Angles
@@ -55,28 +57,34 @@ class control:
 
   # Recieve data from estimated joint angles in vision_2
   def callback1(self, data):
+    self.V1 = Float64()
     self.V1.data = data
     
     Je = self.FK()
-    self.joint1_pub.publish(Je[0])
-    self.joint3_pub.publish(Je[1])
-    self.joint4_pub.publish(Je[2])
+    if Je:
+      self.joint1_pub.publish(Je[0])
+      self.joint3_pub.publish(Je[1])
+      self.joint4_pub.publish(Je[2])
 
   def callback2(self, data):
+    self.V2 = Float64()
     self.V2.data = data
 
     Je = self.FK()
-    self.joint1_pub.publish(Je[0])
-    self.joint3_pub.publish(Je[1])
-    self.joint4_pub.publish(Je[2])
+    if Je:
+      self.joint1_pub.publish(Je[0])
+      self.joint3_pub.publish(Je[1])
+      self.joint4_pub.publish(Je[2])
 
   def callback3(self, data):
+    self.V3 = Float64()
     self.V3.data = data
 
     Je = self.FK()
-    self.joint1_pub.publish(Je[0])
-    self.joint3_pub.publish(Je[1])
-    self.joint4_pub.publish(Je[2])
+    if Je:
+      self.joint1_pub.publish(Je[0])
+      self.joint3_pub.publish(Je[1])
+      self.joint4_pub.publish(Je[2])
 
     
 def main(args):
