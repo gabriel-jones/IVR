@@ -42,9 +42,9 @@ class control:
     # Link2     0       -90     3.2      Taken from Angles
     # Link3     0        0      2.8      Taken from Angles
 
-    L1 = np.array([ 0, (np.pi / 2), 4.0, self.V1.data])
-    L2 = np.array([ 0, (np.pi / 2), 3.2, self.V2.data])
-    L3 = np.array([ 0, 0, 2.8, self.V3.data])
+    L1 = np.array([ 0, (np.pi / 2), 4.0, float(self.V1.data)])
+    L2 = np.array([ 0, (np.pi / 2), 3.2, float(self.V2.data)])
+    L3 = np.array([ 0, 0, 2.8, float(self.V3.data)])
 
     Vec1 = np.matrix([[np.cos(L1[3]), -np.sin(L1[3])*np.cos(L1[1]), np.sin(L1[3])*np.sin(L1[1]), 0*np.cos(L1[3])], [np.sin(L1[3]), np.cos(L1[3]) * np.cos(L1[1]),  -np.cos(L1[3])*np.sin(L1[1]), 0*np.sin(L1[3])], [0, np.sin(L1[1]), np.cos(L1[1]), L1[2]], [0, 0, 0, 1]])
     Vec2 = np.matrix([[np.cos(L2[3]), -np.sin(L2[3])*np.cos(L2[1]), np.sin(L2[3])*np.sin(L2[1]), 0*np.cos(L2[3])], [np.sin(L2[3]), np.cos(L2[3]) * np.cos(L2[1]),  -np.cos(L2[3])*np.sin(L2[1]), 0*np.sin(L2[3])], [0, np.sin(L2[1]), np.cos(L2[1]), L2[2]], [0, 0, 0, 1]])
